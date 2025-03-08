@@ -15,11 +15,16 @@ export default function useOrder(){
         } else{
             const newItem : OrderItem= {...item, quantity: 1} //Casteado a tipo Order Item
             setOrder([...order, newItem]) //Toma una copia del state y lo setea con un state diferente casteado al mismo tipo de type
-              }
         }
+    }
+
+    const removeItem = (id: MenuItem['id']) => {
+        setOrder(order.filter(item => item.id !== id)) //Toma una copia del state y lo setea con un state diferente casteado al mismo tipo de type
+    }
 
     return{
         order,
-        addItem
+        addItem,
+        removeItem
     }
 }
