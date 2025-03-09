@@ -3,7 +3,8 @@ import type { MenuItem, OrderItem } from "../types"
 
 export default function useOrder(){
     const [order, setOrder]= useState<OrderItem[]>([]) //Generic para asignar como valor inicial
- 
+    const [tip, setTip] = useState(0) 
+
     const addItem = (item: MenuItem) => {         
         const itemExists = order.find(orderItem => orderItem.id === item.id) //Busca en el array de OrderItem si el item que le pasamos ya existe en el array
         if(itemExists){ 
@@ -22,9 +23,17 @@ export default function useOrder(){
         setOrder(order.filter(item => item.id !== id)) //Toma una copia del state y lo setea con un state diferente casteado al mismo tipo de type
     }
 
+    const placeOrder = () => {
+        setOrder([]) 
+        setTip(0) 
+    }
+
     return{
         order,
+        tip,
+        setTip,
         addItem,
-        removeItem
+        removeItem,
+        placeOrder
     }
 }
