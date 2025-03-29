@@ -1,12 +1,14 @@
+import { Dispatch } from 'react'
 import { formatCurrency } from '../helpers'
 import { MenuItem, OrderItem } from '../types'
+import { OrderActions } from '../reducers/order-reducers'
 
 type OrderContentsProps = {
     order: OrderItem[]
-    removeItem: (id: MenuItem['id']) => void
+    dispatch: Dispatch<OrderActions>
 } 
 
-export default function OrderContents({order, removeItem} : OrderContentsProps) {
+export default function OrderContents({order, dispatch} : OrderContentsProps) {
   return (
     <div>
       <h2 className='font-black text-4xl'>Consumo</h2>
@@ -28,7 +30,7 @@ export default function OrderContents({order, removeItem} : OrderContentsProps) 
 
               <button 
               className='bg-red-600 h-8 w-8 rounded-full text-white'
-              onClick={() => removeItem(item.id)}
+              onClick={() => dispatch({type: 'remove-item', payload: {id: item.id}})} //Cuando se haga click en el boton se ejecuta la funcion dispatch que le pasamos como prop y le pasamos el action type y el payload que es el id del item que queremos eliminar de la orden
               >
                   X
               </button>
